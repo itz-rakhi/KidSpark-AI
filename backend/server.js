@@ -23,7 +23,6 @@ app.use(cors({
   allowedHeaders: ['Content-Type'],
 }));
 
-app.options('*', cors()); // handle preflight
 
 app.use(express.json());
 
