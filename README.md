@@ -1,133 +1,279 @@
-# AI & Robotics Summer Workshop — Full-Stack Landing Page
+# 🚀 KidSpark AI – AI & Robotics Learning Platform for Kids
 
-A modern, responsive landing page for a kids' AI & Robotics summer workshop, built with **React + Vite + Tailwind CSS** (frontend) and **Express.js + MongoDB** (backend).
+KidSpark AI is a modern full-stack web application designed to introduce children to Artificial Intelligence, Robotics, Coding, and Future Technologies through interactive workshops and personalized learning experiences.
+
+The platform provides a responsive landing page for workshop enrollment along with a comprehensive student dashboard that allows learners to track progress, view assessments, monitor attendance, showcase projects, access mentor feedback, and download certificates.
 
 ---
 
-## Project Structure
+## 🌐 Live Demo
 
-```
+### Frontend
+https://kid-spark-ai.vercel.app
+
+### Backend API
+https://kid-spark-ai-9wg5.vercel.app
+
+### GitHub Repository
+https://github.com/itz-rakhi/KidSpark-AI
+
+---
+
+# 📌 Features
+
+## Public Website
+
+* Modern responsive landing page
+* Workshop information and curriculum
+* Learning outcomes section
+* Frequently Asked Questions (FAQ)
+* Student enrollment form
+* Mobile-friendly design
+* Smooth animations using Framer Motion
+
+## Student Dashboard
+
+* Dashboard Overview
+* Progress Tracker
+* Assessments Module
+* Attendance Reports
+* Student Projects Showcase
+* Mentor Feedback Section
+* Certificate Management
+* Notifications Center
+
+## Backend Features
+
+* REST API architecture
+* Form submission handling
+* Server-side validation
+* MongoDB database integration
+* CORS configuration
+* Error handling middleware
+* Health check endpoint
+
+---
+
+# 🏗️ System Architecture
+
+Student/Parent
+│
+▼
+React + Vite Frontend
+│
+▼
+Express.js REST API
+│
+▼
+MongoDB Database
+
+---
+
+# 📂 Project Structure
+
 project-internshala/
-├── frontend/          # React + Vite + Tailwind CSS
-│   └── src/
-│       ├── components/   # Navbar, Hero, Details, Outcomes, FAQ, RegistrationForm, Footer
-│       ├── pages/        # Home.jsx
-│       └── services/     # api.js (Axios)
-└── backend/           # Express.js + MongoDB
-    ├── controllers/   # enquiryController.js
-    ├── middleware/    # validate.js
-    ├── models/        # Enquiry.js
-    ├── routes/        # enquiry.js
-    └── server.js
+
+├── frontend/
+
+│   ├── src/
+
+│   │   ├── components/
+
+│   │   ├── dashboard/
+
+│   │   │   ├── components/
+
+│   │   │   └── pages/
+
+│   │   ├── pages/
+
+│   │   ├── services/
+
+│   │   └── App.tsx
+
+│   └── public/
+
+│
+
+└── backend/
+
+```
+├── config/
+
+├── controllers/
+
+├── middleware/
+
+├── models/
+
+├── routes/
+
+├── server.js
+
+└── vercel.json
 ```
 
 ---
 
-## Quick Start
+# 🛠️ Tech Stack
 
-### Prerequisites
-- Node.js v18+
-- MongoDB (local or Atlas) — optional, server starts without it
+## Frontend
+
+* React.js
+* TypeScript
+* Vite
+* Tailwind CSS
+* React Router DOM
+* Axios
+* Framer Motion
+* Recharts
+
+## Backend
+
+* Node.js
+* Express.js
+* CORS
+* dotenv
+* express-validator
+
+## Database
+
+* MongoDB Atlas
+* Mongoose
+
+## Deployment
+
+* Vercel (Frontend)
+* Vercel Serverless Functions (Backend)
 
 ---
 
-### Backend Setup
+# ⚙️ Installation & Setup
 
-```bash
+## Clone Repository
+git clone https://github.com/itz-rakhi/KidSpark-AI.git
+cd KidSpark-AI
+
+---
+
+## Backend Setup
 cd backend
-```
 
-Create a `.env` file (already included):
-```
-PORT=5000
-MONGO_URI=mongodb://localhost:27017/workshop
-FRONTEND_URL=http://localhost:5173
-```
-
-Start the server:
-```bash
-node server.js
-# or with auto-reload:
-node --watch server.js
-```
-
-Server runs at: `http://localhost:5000`
-
----
-
-### Frontend Setup
-
-```bash
-cd frontend
+Install dependencies:
 npm install
+
+Create .env file:
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+FRONTEND_URL=http://localhost:5173
+
+Run backend:
+node server.js
+
+Backend runs on:
+http://localhost:5000
+
+---
+
+## Frontend Setup
+cd frontend
+
+Install dependencies:
+npm install
+
+Create .env file:
+VITE_API_URL=http://localhost:5000/api
+
+Start frontend:
 npm run dev
-```
 
-App runs at: `http://localhost:5173`
+Frontend runs on:
+http://localhost:5173
 
 ---
 
-## API Reference
+# 📡 API Endpoints
 
-### `POST /api/enquiry`
+## Health Check
 
-**Request Body:**
-```json
+GET /api/health
+
+Response:
+
 {
-  "name": "Arjun Sharma",
-  "email": "arjun@email.com",
-  "phone": "9876543210"
+"status": "ok"
 }
-```
 
-**Success Response (201):**
-```json
+---
+
+## Register Student
+
+POST /api/enquiry
+
+Request:
+
 {
-  "success": true,
-  "message": "Registration submitted successfully"
+"name": "Rakhi Samant",
+"email": "[example@gmail.com](mailto:example@gmail.com)",
+"phone": "9876543210"
 }
-```
 
-**Error Response (400):**
-```json
+Success Response:
+
 {
-  "success": false,
-  "message": "Valid email is required"
+"success": true,
+"message": "Registration submitted successfully!"
 }
-```
 
 ---
 
-## Features
+# 🔒 Security Features
 
-- 🎨 Dark-themed modern UI with gradient accents
-- 📱 Fully responsive (mobile, tablet, desktop)
-- ✨ Framer Motion animations throughout
-- ✅ Client-side + server-side form validation
-- 🔄 Loading, success, and error states on form
-- 🪗 Accordion FAQ section
-- 📦 MongoDB integration with Mongoose
-- 🔒 CORS configured for security
-- 🏷️ SEO meta tags in HTML
+* Input validation using express-validator
+* Email validation
+* Phone number validation
+* CORS protection
+* Environment variable configuration
+* Error handling middleware
 
 ---
 
-## Tech Stack
+# 📈 Future Enhancements
 
-| Layer     | Technology                        |
-|-----------|-----------------------------------|
-| Frontend  | React 18, Vite, Tailwind CSS v4   |
-| Animations| Framer Motion                     |
-| HTTP      | Axios                             |
-| Backend   | Express.js, CORS, dotenv          |
-| Validation| express-validator                 |
-| Database  | MongoDB + Mongoose                |
+* User Authentication & Login
+* Parent Dashboard
+* AI Chatbot Assistant
+* Course Management System
+* Online Assessments
+* Payment Gateway Integration
+* Student Performance Analytics
+* Certificate Verification
+* Mobile Application
 
 ---
 
-## MongoDB Atlas (Cloud)
+# 🚀 Deployment
 
-Replace `MONGO_URI` in `backend/.env` with your Atlas connection string:
-```
-MONGO_URI=mongodb+srv://<user>:<password>@cluster0.xxxxx.mongodb.net/workshop
-```
+Frontend deployed using Vercel:
+https://kid-spark-ai.vercel.app
+
+Backend deployed using Vercel Serverless Functions:
+https://kid-spark-ai-9wg5.vercel.app
+
+---
+
+# 👩‍💻 Developer
+
+Rakhi Avadut Samant
+Computer Engineering Student | Mumbai University
+
+LinkedIn:
+https://www.linkedin.com/in/rakhi-samant-0bb067346
+
+Email:
+[rrakhis412005@gmail.com](mailto:rrakhis412005@gmail.com)
+
+---
+
+# 📜 License
+This project is developed for educational and portfolio purposes.
