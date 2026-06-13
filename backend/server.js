@@ -6,12 +6,24 @@ const connectDB = require('./config/db');
 const app = express();
 
 // ── CORS ────────────────────────────────────────────────────────────────────
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  'http://localhost:5173',
+  'http://localhost:4173',
+].filter(Boolean);
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
+    console.error('CORS blocked:', origin);
+    callback(null, true); // temporarily allow all — remove after confirming
+  },
   credentials: true,
-  methods: ['GET', 'POST'],
+  methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type'],
 }));
+
+app.options('*', cors()); // handle preflight
 
 app.use(express.json());
 
@@ -22,7 +34,12 @@ connectDB();
 app.use('/api', require('./routes/enquiry'));
 
 // Health check
-app.get('/api/health', (req, res) => res.json({ status: 'ok', timestamp: new Date() }));
+app.get('/api/health', (req, res) => res.json({
+  status: 'ok',
+  timestamp: new Date(),
+  frontend_url: process.env.FRONTEND_URL || 'NOT SET',
+  mongo: process.env.MONGO_URI ? 'SET' : 'NOT SET',
+}));
 
 // 404
 app.use((req, res) => {
