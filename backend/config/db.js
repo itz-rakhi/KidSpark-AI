@@ -1,16 +1,27 @@
 const mongoose = require('mongoose');
 
-/**
- * Connects to MongoDB. Server starts regardless of outcome.
- */
+// Global cache — persists across serverless warm invocations
+let cached = global.mongoose;
+if (!cached) {
+  cached = global.mongoose = { conn: null, promise: null };
+}
+
 const connectDB = async () => {
-  try {
-    const conn = await mongoose.connect(process.env.MONGO_URI);
-    console.log(`✅ MongoDB connected: ${conn.connection.host}`);
-  } catch (err) {
-    console.error(`⚠️  MongoDB connection failed: ${err.message}`);
-    console.log('   Server will run without database — submissions will not be persisted.');
+  if (cached.conn) return cached.conn;
+
+  if (!cached.promise) {
+    cached.promise = mongoose.connect(process.env.MONGO_URI).then((m) => m);
   }
+
+  try {
+    cached.conn = await cached.promise;
+    console.log(`✅ MongoDB connected: ${cached.conn.connection.host}`);
+  } catch (err) {
+    cached.promise = null;
+    console.error(`⚠️  MongoDB connection failed: ${err.message}`);
+  }
+
+  return cached.conn;
 };
 
 module.exports = connectDB;

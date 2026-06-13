@@ -11,7 +11,7 @@ export interface ApiResponse {
   message: string;
 }
 
-const api = axios.create({ baseURL: import.meta.env.VITE_API_URL || '/api' });
+const api = axios.create({ baseURL: import.meta.env.VITE_API_URL });
 
 export const submitEnquiry = (data: EnquiryPayload) =>
   api.post<ApiResponse>('/enquiry', data);
